@@ -14,6 +14,8 @@ var inTo;
 var labelLoading;
 var labelBase;
 
+var urlCookie = "http://www.iucnredlist.org/search/link/5afd35f0-6ab4051c";
+
 
 /**
  * Initialize DOM elements
@@ -30,6 +32,7 @@ var init = function(){
 		inFrom.val(1);
 		inTo.val(MAX_PAGE_COUNT);
 		ws.reset();	
+		ws.setBaseUrlCookie(urlCookie);
 
 		// re-activate main buttons
 		btnScrape.prop('disabled', false);
@@ -134,5 +137,6 @@ var activate = function(disabled){
  */
 $(document).ready(function(){
 	ws = new WebScraper();
+	ws.setBaseUrlCookie(urlCookie);
 	init();
 });

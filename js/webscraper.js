@@ -25,7 +25,10 @@ var WebScraper = function(url){
 		pageQuery: "?page=",
 
 		// default API url
-		baseUrl: "http://www.iucnredlist.org/search"
+		baseUrl: "http://www.iucnredlist.org/search",
+
+		// starting url for page (1), if website uses a cookie
+		baseUrlStart: "http://www.iucnredlist.org/search/link/5afd35f0-6ab4051c"
 	};
 
 	this.url = (url != null) ? url : this.settings.baseUrl;
@@ -47,6 +50,9 @@ var WebScraper = function(url){
 
 	// total number of loaded pages
 	this.countLoaded = 0;
+
+	// flag if the website uses a cookie
+	this.hasCookie = false;
 };
 
 
@@ -105,8 +111,13 @@ WebScraper.prototype.loadSpecies = function(callback){
 
 	if(this.canLoadSpecies()){
 		// Update the url with new page
-		this.url = this.settings.baseUrl + 
-			((this.currentPage == 0) ? "" : this.settings.pageQuery + (this.currentPage + 1));
+		if(this.hasCookie && this.currentPage == 0){
+			this.url = this.settings.baseUrlStart;	
+		}
+		else{
+			this.url = this.settings.baseUrl + 
+				((this.currentPage == 0) ? "" : this.settings.pageQuery + (this.currentPage + 1));
+		}
 
 		console.log("--loading " + this.url);	
 
@@ -203,6 +214,8 @@ WebScraper.prototype.reset = function(){
 	this.settings.minPage = 1;
 	this.settings.maxPage = MAX_PAGE_COUNT;
 	this.countLoaded = 0;
+	this.hasCookie = false;
+	this.baseUrlStart = "";
 };
 
 
@@ -267,6 +280,15 @@ WebScraper.prototype.setMinPage = function(min){
  */
 WebScraper.prototype.setCurrentPage = function(x){
 	this.currentPage = x;
+};
+
+
+/**
+ * Set the initial starting page, if the website uses a cookie
+ */
+WebScraper.prototype.setBaseUrlCookie = function(url){
+	this.baseUrlStart = url;
+	this.hasCookie = true;
 };
 
 
