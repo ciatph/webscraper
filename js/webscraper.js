@@ -148,6 +148,7 @@ WebScraper.prototype.loadSpecies = function(callback){
 			},
 			error: function(e){
 				console.log("An error occured: " + e);
+				callback([false]);
 			}
 		});		
 	}

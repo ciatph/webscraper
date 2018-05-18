@@ -33,7 +33,6 @@ var init = function(){
 
 		// re-activate main buttons
 		btnScrape.prop('disabled', false);
-		btnStop.prop('disabled', false);
 	});
 
 	// initialize the download file button
@@ -62,7 +61,8 @@ var init = function(){
 		console.log('clicked stop');
 		ws.stop();	
 		btnStop.prop('disabled', true);
-	});		
+	});	
+	btnStop.prop('disabled', true);	
 
 	// initialize the FROM/min page input box
 	inFrom = $("#pfrom").click(function(){
@@ -101,7 +101,8 @@ var setLabelLoading = function(page){
 var activate = function(disabled){
 	console.log("DISABLED: " + disabled[0]);
 	if(!disabled[0]){
-		setLabelLoading("FINISHED LOADING! " + ws.countLoaded + " PAGES");
+		var msg = (ws.countLoaded == 0) ? "An error occured while fetching data." : "FINISHED LOADING! " + ws.countLoaded + " PAGES";
+		setLabelLoading(msg);
 	}
 
 	try{
