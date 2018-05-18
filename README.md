@@ -3,7 +3,7 @@ JS Web scraper that extracts species names from [http://www.iucnredlist.org/sear
 
 ## Usage
 
-1. Host this project folder and/or its contents on an http web server.
+1. Host this project folder and/or its contents on an http web server that allows ajax calls over _http_.
 
 2. Enter a starting (**From**) and ending (**To**) page range indices on which to scrape data. Maximum page is currently set to 35.
 
