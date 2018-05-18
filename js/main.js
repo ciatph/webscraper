@@ -33,6 +33,8 @@ var init = function(){
 
 		// re-activate main buttons
 		btnScrape.prop('disabled', false);
+		btnReset.prop('disabled', true);
+		btnDownload.prop('disabled', true);		
 	});
 
 	// initialize the download file button
@@ -61,8 +63,7 @@ var init = function(){
 		console.log('clicked stop');
 		ws.stop();	
 		btnStop.prop('disabled', true);
-	});	
-	btnStop.prop('disabled', true);	
+	});		
 
 	// initialize the FROM/min page input box
 	inFrom = $("#pfrom").click(function(){
@@ -77,6 +78,11 @@ var init = function(){
 	// initialize the log loading label output
 	labelLoading = $("#labelLoading");
 	setLabelLoading("");
+
+	// disable buttons
+	btnStop.prop('disabled', true);
+	btnReset.prop('disabled', true);
+	btnDownload.prop('disabled', true);
 };
 
 
