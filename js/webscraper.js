@@ -121,7 +121,7 @@ WebScraper.prototype.loadSpecies = function(callback){
 
 		console.log("--loading " + this.url);	
 
-		setLabelLoading(this.currentPage + 1);
+		callback([true, this.currentPage + 1]);
 		this.isLoading = true;
 
 		$.ajax({

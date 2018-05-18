@@ -107,27 +107,34 @@ var setLabelLoading = function(page){
 /**
  * Enable/disable the buttons and input boxes
  */
-var activate = function(disabled){
-	console.log("DISABLED: " + disabled[0]);
-	if(!disabled[0]){
-		var msg = (ws.countLoaded == 0) ? "An error occured while fetching data." : "FINISHED LOADING! " + ws.countLoaded + " PAGES";
-		setLabelLoading(msg);
-	}
+var activate = function(param){
+	console.log("DISABLED: " + param[0]);
 
-	try{
-		btnDownload.prop('disabled', disabled[0]);
-		if(disabled[0])
-			btnScrape.prop('disabled', disabled[0]);
-
-		btnStop.prop('disabled', !disabled[0]);
-		inFrom.prop('disabled', disabled[0]);
-		inTo.prop('disabled', disabled[0]);
-		btnReset.prop('disabled', disabled[0]);
+	if(param.length == 2){
+		setLabelLoading(param[1]);
 	}
-	catch(e){
-		console.log("initializing elements...");
-		init();
-		activate(disabled);
+	else{
+		// Activate buttons only
+		if(!param[0]){
+			var msg = (ws.countLoaded == 0) ? "An error occured while fetching data." : "FINISHED LOADING! " + ws.countLoaded + " PAGES";
+			setLabelLoading(msg);
+		}
+
+		try{
+			btnDownload.prop('disabled', param[0]);
+			if(param[0])
+				btnScrape.prop('disabled', param[0]);
+
+			btnStop.prop('disabled', !param[0]);
+			inFrom.prop('disabled', param[0]);
+			inTo.prop('disabled', param[0]);
+			btnReset.prop('disabled', param[0]);
+		}
+		catch(e){
+			console.log("initializing elements...");
+			init();
+			activate(param);
+		}
 	}
 };
 
