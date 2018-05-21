@@ -22,6 +22,11 @@ var urlCookie = "http://www.iucnredlist.org/search/link/5afd35f0-6ab4051c";
  * Bind WebScraper methods to DOM elements
  */
 var init = function(){
+	// set cookies
+	Cookies.set("_ga", "GA1.2.867451790.1526553976", { domain: 'www.iucnredlist.org' });
+	Cookies.set("_gid", "GA1.2.342216387.1526553976", { domain: 'www.iucnredlist.org' });
+	Cookies.set("_newiucnredlist_session", "3df35b5c6e43ffe43e1bb4f1508dbf19", { domain: 'www.iucnredlist.org' });		
+
 	labelBase = $("#labelBase");
 	labelBase.html("Base url: " + ws.settings.baseUrl);
 

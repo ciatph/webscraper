@@ -10,6 +10,9 @@ var USER_MAX_PAGE_COUNT = 1;
 var MAX_PAGE_COUNT = 35;
 var COUNT_SPECIES_PER_PAGE = 50;
 
+var error;
+var xhr;
+
 var WebScraper = function(url){
 	this.settings = {
 		// maximum number of species names
@@ -73,7 +76,7 @@ WebScraper.prototype.loadUrl = function(url){
 			type: "POST",
 			success: function(j){
 				self.isLoading = false;
-				
+
 				// Remove all uneccessary elements (script, css, img)
 				response = WebScraper.prototype.stripScripts(j);
 
@@ -126,11 +129,53 @@ WebScraper.prototype.loadSpecies = function(callback){
 
 		$.ajax({
 			url: self.url,
+			/*
+			headers:{
+				"Accept": "text/plain; charset=utf-8",
+				"Content-Type": "text/plain; charset=utf-8",
+				"Access-Control-Allow-Origin": self.url,
+				"Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+				"Access-Control-Allow-Headers": "Content-Type, Accept, X-Requested-With, remember-me, X-PINGOTHER",
+				"Access-Control-Max-Age": "1728000",
+				"Access-Control-Allow-Credentials": "true"
+			},
+			*/
+			/*
+			beforeSend: function(xhrObj){
+				xhrObj.setRequestHeader("Content-Type","text/plain; charset=utf-8");
+				xhrObj.setRequestHeader("Accept","text/plain; charset=utf-8");
+				xhrObj.setRequestHeader("Access-Control-Allow-Origin", "http://www.iucnredlist.org/");
+				xhrObj.setRequestHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+				xhrObj.setRequestHeader("Access-Control-Allow-Headers","Content-Type, Accept, X-Requested-With, remember-me, X-PINGOTHER");
+				xhrObj.setRequestHeader("Access-Control-Max-Age", "1728000");
+				xhrObj.setRequestHeader("Access-Control-Allow-Credentials", "true");
+			},
+			*/
+			/*
+		    accepts: {
+		        xml: "text/xml",
+		        text: "text/xml"
+		    },	
+		    */
+		    /*
+		    contentType: "text/xml",
+		    beforeSend: function(req){
+		    	req.setRequestHeader("Accept", "text/xml");
+		    },		
 			dataType: "text",
-			type: "POST",
+			type: "GET",
+			*/
+			xhrFields: {
+				withCrredentials: true,
+			},
+			type: "GET",
+			complete: function(j){
+				error = j;
+			},
 			success: function(j){
 				self.isLoading = false;
 				self.countLoaded++;
+				//error = j;
 				console.log("loaded! " + self.countLoaded);
 
 				// Remove all uneccessary elements (script, css, img)
@@ -158,7 +203,8 @@ WebScraper.prototype.loadSpecies = function(callback){
 				}			
 			},
 			error: function(e){
-				console.log("An error occured: " + e);
+				error = e;
+				console.log("An error occured: " + e.responseText);
 				callback([false]);
 			}
 		});		
