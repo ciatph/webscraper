@@ -1,5 +1,5 @@
 # webscraper
-JS Web scraper that extracts species names from [http://www.iucnredlist.org/search](http://www.iucnredlist.org/search) into a comma-separated text file.
+A JS Web scraper that extracts species names from [http://www.iucnredlist.org/search](http://www.iucnredlist.org/search) into a comma-separated text file.
 
 ## Usage
 
@@ -26,13 +26,14 @@ Host this project folder and/or its contents on an _http_ web server.
 
 ## Disable Security in Chrome
 
-1. Type the following in a windows commandline:
+Type the following in a windows commandline:
 
 >rem rem stands for remark/comments<br>
 rem Kill all chrome process<br>
 taskkill /F /IM chrome.exe <br>
 start chrome --disable-web-security --user-data-dir
 
+<br>
 # WARNING!
 
 Once chrome has been re-started with disable flags, it will always run with disabled security unless you re-start it again in a normal manner. It is dangerous to continue using Chrome with disabled security, so be sure to reset it to its original settings.
