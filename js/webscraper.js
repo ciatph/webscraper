@@ -246,6 +246,22 @@ WebScraper.prototype.canLoadSpecies = function(){
 }
 
 
+
+/**
+ * Loads a remote resource in a <script> tag that may or 
+ * or may not have a callback (JSONP)
+ * @param url 	Remote url to load content
+ */
+WebScraper.prototype.loadJsonp = function(url){
+	url = (url != null && url != undefined) ? url : this.url;
+
+	var script = document.createElement('script');
+	script.src = url;
+	document.getElementsByTagName('head')[0].appendChild(script);	
+};
+
+
+
 /**
  * Reset all settings
  * Clear species list array containers
